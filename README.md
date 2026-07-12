@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *ReservaSport 🏟️*
 ---------------
 Gestión de Reservas de Canchas Deportivas
@@ -82,3 +83,7 @@ EvidenciaDescripciónApp con canchas desde APIPantalla mostrando canchas cargada
 📦 APK
 El instalador compilado está disponible en:
 app/build/outputs/apk/debug/app-debug.apk
+=======
+# Exp3_S8_LilianZapata
+sumativa semana 3
+>>>>>>> 0eb338c61cca2468f6bd3046d47daa59e73a5415
