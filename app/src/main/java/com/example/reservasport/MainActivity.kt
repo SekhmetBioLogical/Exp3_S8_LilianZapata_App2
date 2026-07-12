@@ -1,0 +1,24 @@
+package com.example.reservasport
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Surface
+import androidx.compose.ui.Modifier
+import com.example.reservasport.ui.navigation.AppNavigation
+import com.example.reservasport.ui.theme.ReservaSportTheme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            ReservaSportTheme {
+                Surface(modifier = Modifier.fillMaxSize()) {
+                    // Ahora la app arranca desde el motor de navegación
+                    AppNavigation()
+                }
+            }
+        }
+    }
+}
