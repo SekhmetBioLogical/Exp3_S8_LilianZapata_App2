@@ -1,89 +1,84 @@
-<<<<<<< HEAD
-*ReservaSport 🏟️*
----------------
-Gestión de Reservas de Canchas Deportivas
-Aplicación móvil nativa desarrollada en Android con Jetpack Compose, Material Design 3 y arquitectura MVVM. Permite visualizar, filtrar y gestionar reservas de canchas deportivas, integrando conectividad REST, procesos asincrónicos y diagnóstico de memoria.
+*ReservaSport*
+----------------
+Gestión de Reservas de Canchas Deportivas. Aplicación móvil nativa desarrollada en Android con Jetpack Compose, Material Design 3 y arquitectura MVVM. Permite visualizar, filtrar y gestionar reservas de canchas deportivas, integrando conectividad REST, procesos asincrónicos, persistencia local con Room y diagnóstico de memoria.
 
 🛠️ Stack Tecnológico
----------------------
-
-Lenguaje: Kotlin
-UI: Jetpack Compose + Material Design 3
-Arquitectura: MVVM (Model-View-ViewModel)
-Asincronía: Kotlin Coroutines + StateFlow
-Persistencia local: SharedPreferences
-Conectividad: Retrofit 2 + Gson
-Diagnóstico de memoria: LeakCanary 2.14
-API de prueba: JSONPlaceholder
-
+    Lenguaje: Kotlin
+    
+    UI: Jetpack Compose + Material Design 3
+    
+    Arquitectura: MVVM (Model-View-ViewModel)
+    
+    Asincronía: Kotlin Coroutines + StateFlow
+    
+    Persistencia local: Room Database
+    
+    Conectividad: Retrofit 2 + Gson
+    
+    Diagnóstico de memoria: LeakCanary 2.14
+    
+    API de prueba: JSONPlaceholder
 
 📁 Estructura del Proyecto
+
+```text
 com.example.reservasport/
 ├── data/
 │   ├── Cancha.kt
 │   ├── CanchaRemota.kt
 │   ├── CanchaApiService.kt
 │   ├── RetrofitClient.kt
-│   ├── PreferenciasReserva.kt
+│   ├── ReservaEntity.kt
+│   ├── ReservaDao.kt
+│   ├── ReservaDatabase.kt
 │   └── ReservaRepository.kt
 ├── ui/
 │   ├── components/
 │   │   └── CardCancha.kt
+│   ├── navigation/
+│   │   └── AppNavigation.kt
 │   └── screens/
 │       └── ReservaSportScreen.kt
 ├── viewmodel/
 │   ├── ReservaViewModel.kt
 │   └── AppViewModelFactory.kt
 └── MainActivity.kt
+```
+            
+Resumen de Progreso: Semanas 7 y 8
+----------------------------------
+- Semana 7: Diagnóstico, Pruebas y Aseguramiento de Calidad
+En esta etapa, el foco estuvo en la estabilidad y el control de calidad de la aplicación:
 
-⚙️ Mejoras Implementadas — Semana 6
-------------------------------------
-1. Integración Retrofit (Librería Externa)
-Se integró Retrofit 2 con Gson para consumir la API REST pública JSONPlaceholder, simulando la carga de canchas desde un servidor real. La solicitud se realiza en segundo plano mediante Coroutines sin bloquear el hilo principal.
-kotlinimplementation("com.squareup.retrofit2:retrofit:2.11.0")
-implementation("com.squareup.retrofit2:converter-gson:2.11.0")
-Justificación técnica: Retrofit es la librería estándar de la industria para consumo de APIs REST en Android. Permite definir endpoints como interfaces Kotlin, gestiona automáticamente la serialización/deserialización JSON y se integra nativamente con Coroutines mediante funciones suspend.
-2. Procesos Asincrónicos (Kotlin Coroutines)
-Todas las operaciones de red y persistencia se ejecutan fuera del hilo principal usando viewModelScope.launch y withContext(Dispatchers.IO), garantizando una UI fluida sin ANR.
-kotlinprivate fun cargarCanchasDesdeApi() {
-    viewModelScope.launch {
-        val respuesta = RetrofitClient.api.obtenerCanchas()
-        _listaCanchas.value = respuesta.take(5).map { ... }
-    }
-}
-3. Debugging y Manejo de Errores
-Se implementaron bloques try-catch en todas las operaciones críticas con registro en Logcat mediante Log.d y Log.e. Se incluyó un fallback a datos locales si la API no responde, y una función simularErrorDebugging() que provoca y captura un IndexOutOfBoundsException de forma controlada para evidenciar el manejo de errores.
-D/ReservaViewModel: Iniciando carga de canchas desde API...
-D/ReservaViewModel: Canchas cargadas exitosamente desde API: 5
-4. Diagnóstico y Corrección de Memory Leak (LeakCanary)
-Leak intencional creado:
-kotlin// ANTES — referencia estática que retiene la Activity
-companion object {
-    var fugaDeMemoria: Any? = null
-}
-override fun onCreate(...) {
-    fugaDeMemoria = this // leak: Activity nunca es liberada por el GC
-}
-LeakCanary detectó el leak al destruirse la Activity durante rotación de pantalla:
-D/LeakCanary: Watching instance of com.example.reservasport.MainActivity
-(MainActivity received Activity#onDestroy() callback)
-Corrección aplicada:
-kotlin// DESPUÉS — sin companion object, sin referencia estática
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent { ... }
-    }
-}
-Al eliminar la referencia estática, el Garbage Collector puede liberar la Activity correctamente al destruirse, eliminando la fuga de memoria.
+Diagnóstico de Memoria: Implementación de LeakCanary para detectar y corregir fugas de memoria en la MainActivity, asegurando un manejo correcto del ciclo de vida.
+
+Gestión de Errores: Implementación de bloques try-catch y logueo robusto en las capas de datos y ViewModel para capturar excepciones en tiempo de ejecución.
+
+Pruebas Unitarias: Configuración de JUnit y MockK para validar la lógica del repositorio y el DAO, garantizando que la persistencia de datos sea confiable.
+
+- Semana 8: Integración Final, UI y Despliegue
+En esta etapa final, se consolidó la experiencia de usuario y la entrega profesional:
+
+Persistencia con Room: Migración de SharedPreferences a Room Database, logrando una arquitectura de datos relacional y eficiente.
+
+Navegación Fluida: Implementación del motor de navegación con NavHost y Compose Navigation, estructurando el flujo entre la pantalla de inicio y la lista de reservas.
+
+Pruebas Funcionales (UI): Ejecución de Espresso/Compose Tests para automatizar el flujo completo de navegación, asegurando que la interacción del usuario sea consistente.
+
+Identidad Visual: Configuración de Image Assets para personalizar el ícono de la aplicación, cumpliendo con los estándares de empaquetado profesional.
+
+Empaquetado y Firma: Generación del APK firmado (Release), asegurando que la aplicación esté lista para su distribución y entrega final.
+
+🚀 Instrucciones para Ejecutar el Proyecto
+1. **Clonar el repositorio**: `https://github.com/SekhmetBioLogical/Exp3_S8_LilianZapata_App2`
+2. **Abrir en Android Studio**: Selecciona la carpeta raíz del proyecto.
+3. **Sincronizar Gradle**: Espera a que Android Studio descargue las dependencias (Retrofit, Room, etc.).
+4. **Ejecutar pruebas**: Ve a la pestaña "Build" -> "Run Tests" para validar la lógica y UI.
+5. **Instalar**: Conecta un emulador o dispositivo físico con modo desarrollador activo y presiona "Run".
 
 📸 Capturas de Evidencia
-EvidenciaDescripciónApp con canchas desde APIPantalla mostrando canchas cargadas desde JSONPlaceholderLogcat RetrofitConfirmación de carga exitosa desde API RESTLogcat LeakCanaryDetección del leak en MainActivityApp "Leaks" instaladaLeakCanary corriendo en el emulador
+Se sube en el informe word
 
-📦 APK
-El instalador compilado está disponible en:
-app/build/outputs/apk/debug/app-debug.apk
-=======
-# Exp3_S8_LilianZapata
-sumativa semana 3
->>>>>>> 0eb338c61cca2468f6bd3046d47daa59e73a5415
+📦 Entrega del APK
+Puedes descargar la versión final de la aplicación para pruebas aquí:
+https://drive.google.com/file/d/1apRxk_CgQMgC19rhxWqNOUb4INqFeBMi/view?usp=sharing
