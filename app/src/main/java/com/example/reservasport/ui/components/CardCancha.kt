@@ -11,10 +11,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.reservasport.data.Cancha
 
+// componente tarjeta visual para reserva sport
 @Composable
 fun CardCancha(cancha: Cancha, onCardClick: () -> Unit) {
-    val esReservada = cancha.disponibilidad == "RESERVADA por ti"
+    // verifica estado ocupacion para reserva sport
+    val esReservada = cancha.disponibilidad.contains("RESERVADA", ignoreCase = true)
 
+    // diseño tarjeta cancha reserva sport
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -30,7 +33,7 @@ fun CardCancha(cancha: Cancha, onCardClick: () -> Unit) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(modifier = Modifier.weight(1f)) {
-                // tutilo de la cancha
+                // muestra nombre cancha reserva sport
                 Text(
                     text = cancha.nombre,
                     fontSize = 18.sp,
@@ -39,7 +42,7 @@ fun CardCancha(cancha: Cancha, onCardClick: () -> Unit) {
                 )
                 Spacer(modifier = Modifier.height(4.dp))
 
-                // nombre del deporte
+                // muestra deporte cancha reserva sport
                 Text(
                     text = "Disciplina: ${cancha.deporte}",
                     fontSize = 14.sp,
@@ -47,7 +50,7 @@ fun CardCancha(cancha: Cancha, onCardClick: () -> Unit) {
                 )
                 Spacer(modifier = Modifier.height(8.dp))
 
-                // estado de disponibilidad
+                // muestra disponibilidad reserva sport
                 Text(
                     text = cancha.disponibilidad,
                     fontSize = 14.sp,
@@ -56,12 +59,12 @@ fun CardCancha(cancha: Cancha, onCardClick: () -> Unit) {
                 )
             }
 
-            // indicador del estado
+            // boton accion reserva sport
             SuggestionChip(
-                onClick = { },
+                onClick = { onCardClick() },
                 label = {
                     Text(
-                        text = if (esReservada) "✓ LISTO" else "LIBRE",
+                        text = if (esReservada) "LIBERAR" else "RESERVAR",
                         fontWeight = FontWeight.ExtraBold,
                         fontSize = 12.sp
                     )

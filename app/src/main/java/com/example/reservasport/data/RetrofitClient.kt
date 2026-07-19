@@ -4,12 +4,14 @@ import android.util.Log
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+// cliente retrofit configurado para reserva sport
 object RetrofitClient {
-    private const val TAG = "RetrofitClient"
+
+    // url base api reserva sport
     private const val BASE_URL = "https://jsonplaceholder.typicode.com/"
 
+    // instancia api cancha reserva sport
     val api: CanchaApiService by lazy {
-        Log.d(TAG, "Inicializando cliente Retrofit con BASE_URL: $BASE_URL")
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())

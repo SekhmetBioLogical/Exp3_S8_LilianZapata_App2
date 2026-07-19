@@ -9,13 +9,16 @@ import androidx.compose.ui.Modifier
 import com.example.reservasport.ui.navigation.AppNavigation
 import com.example.reservasport.ui.theme.ReservaSportTheme
 
+// actividad principal reserva sport
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            // aplica tema visual reserva sport
             ReservaSportTheme {
+                // contenedor principal reserva sport
                 Surface(modifier = Modifier.fillMaxSize()) {
-                    // Ahora la app arranca desde el motor de navegación
+                    // inicia navegacion reserva sport
                     AppNavigation()
                 }
             }

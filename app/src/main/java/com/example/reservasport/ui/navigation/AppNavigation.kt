@@ -12,25 +12,30 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.reservasport.ui.screens.ReservaSportScreen
 
+// gestion navegacion principal reserva sport
 @Composable
 fun AppNavigation() {
-    // Este es el "sistema nervioso" que controla dónde estamos
+
+    // controlador navegacion reserva sport
     val navController = rememberNavController()
 
-    // NavHost es el "cuerpo" que cambia según la ruta
+    // host navegacion reserva sport
     NavHost(navController = navController, startDestination = "inicio") {
 
-        // Ruta 1: Pantalla de Bienvenida (Home)
+        // ruta pantalla inicio reserva sport
         composable("inicio") {
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                // titulo bienvenida reserva sport
                 Text(text = "Bienvenido a ReservaSport")
                 Spacer(modifier = Modifier.height(16.dp))
+
+                // boton acceso canchas reserva sport
                 Button(onClick = {
-                    // Acción motora: Caminar hacia las reservas
+                    // navegacion a reservas reserva sport
                     navController.navigate("reservas")
                 }) {
                     Text("Ver Canchas Disponibles")
@@ -38,7 +43,7 @@ fun AppNavigation() {
             }
         }
 
-        // Ruta 2: Tu pantalla principal (El órgano que ya construimos)
+        // ruta pantalla reservas reserva sport
         composable("reservas") {
             ReservaSportScreen()
         }
