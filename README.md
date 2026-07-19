@@ -22,14 +22,15 @@ Navegación: Jetpack Navigation Component.
 🏗️ Arquitectura del Proyecto
 El código está estructurado para maximizar la escalabilidad y la mantenibilidad, separando claramente las responsabilidades:
 
-Plaintext
         com.example.reservasport/
         ├── data/               # Modelos, DAOs, Entidades, Repositorios y Cliente API
         ├── ui/                 # Componentes reutilizables, Navegación y Pantallas
         ├── viewmodel/          # Lógica de estado y comunicación con la UI
         └── MainActivity.kt     # Punto de entrada y ciclo de vida de la aplicación
 
-📈 Resumen de Ejecución (Semanas 7-8)
+📈 Resumen de Ejecución 
+-------------------------
+
 Fase de Aseguramiento y Estabilidad
 Diagnóstico de Memoria: Implementación de LeakCanary para auditoría de ciclo de vida en MainActivity, garantizando un uso eficiente de la memoria RAM.
 
@@ -50,6 +51,7 @@ Entrega: Generación de APK firmado (Release) optimizado para distribución.
 Clonar: git clone [https://github.com/SekhmetBioLogical/Exp3_S8_LilianZapata_App2](https://github.com/SekhmetBioLogical/Exp3_S8_LilianZapata_App2)
 
 Configurar: Abrir el proyecto en Android Studio.
+------------------------------------------------
 
 Sincronizar: Esperar la descarga automática de dependencias (Gradle).
 
@@ -60,4 +62,4 @@ Desplegar: Conectar un dispositivo físico o emulador y ejecutar el perfil Relea
 📥 Recursos Adicionales
 Evidencias: Documentación completa disponible en el informe adjunto (Word).
 
-APK de Pruebas: Descargar versión final aquí
+APK de Pruebas: Descargar versión final aquí: https://drive.google.com/drive/folders/18ghZIPrfoWsDGS__wfk8-Fofqmv3BxZy?usp=sharing
